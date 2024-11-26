@@ -1,0 +1,23 @@
+{
+  
+  "devDependencies": {   
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1",
+    "webpack-notifier": "^1.15.0"
+  },
+  
+  "dependencies": {
+    "@symfony/webpack-encore": "github:symfony/webpack-encore",
+    "sass": "^1.81.0",
+    "sass-loader": "^16.0.3"
+  },
+  
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  
+  }
+}

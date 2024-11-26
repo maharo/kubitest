@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Produits
+{% endblock %}
+
+{% block container %}
+	<div class="content">
+		<div class="product-list">
+			<h1>Liste des produits</h1>
+			{% for product in products %}
+				<div class="product col-sm-3">
+					<h2>{{ product.name }}</h2>
+					<div class="product-spec">
+						<span>{{ product.year }}</span>
+						<span><i class="fa-solid fa-gas-pump"></i>{{ product.energy }}</span>
+					</div>
+					<span>{{ product.description }}</span>
+					
+					{% if order %}
+						{{ form_start(forms[product.id]) }}
+						{{ form_widget(forms[product.id]) }}
+						{{ form_end(forms[product.id]) }}
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+		{{ include('order/_detail.html.twig', {'display_button': true}) }}
+	</div>
+{% endblock %}
+

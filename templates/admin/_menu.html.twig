@@ -1,0 +1,22 @@
+{% set routeName = app.request.attributes.get('_route') %}
+
+<nav class="nav flex-column">
+    <a href="{{path('app_order_management')}}" 
+        class="nav-link  {% if routeName in ['app_order_management', 'app_order_management_show']%} active {% endif %}">
+        Gestion des commandes
+    </a>
+    <a href="{{path('app_product_index')}}" 
+        class="nav-link  {% if routeName in ['app_product_new', 'app_product_index', 'app_product_edit']%} active {% endif %}">
+        Produits
+    </a>
+     <a href="{{path('app_supplier_index')}}" 
+        class="nav-link  {% if routeName in ['app_supplier_new', 'app_supplier_index', 'app_supplier_edit']%} active {% endif %}">
+        Fournisseurs
+    </a>
+    <a href="{{path('app_brand_index')}}" class="nav-link  {% if routeName in ['app_brand_new', 'app_brand_index', 'app_brand_edit']%} active {% endif %}">
+        Marques
+    </a>
+     <a href="{{path('app_category_index')}}" class="nav-link  {% if routeName in ['app_category_new', 'app_category_index', 'app_category_edit']%} active {% endif %}">
+        Types
+    </a>
+</nav>

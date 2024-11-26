@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Détails de la commande
+{% endblock %}
+
+{% block content %}
+	{% embed 'order/_detail.html.twig' %}
+		{% block goback %}
+			<a href="{{path('app_order_management')}}" class="mb-3 d-inline-block">
+				<i class="fa fa-arrow-left"></i>
+				Retour à la liste des commandes
+			</a>
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
+

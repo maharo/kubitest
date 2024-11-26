@@ -1,0 +1,61 @@
+@import 'variable'; 
+
+body {
+    background-color: $background-color;
+    font-family: Arial, sans-serif;
+}
+
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .form-control {
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+
+        &:focus {
+            border-color: $secondary-color;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: $secondary-color;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $secondary-color;
+        }
+    }
+
+    .alert {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 14px;
+
+        &.alert-danger {
+            background-color: $background-color;
+            color: $danger-color;
+            border: 1px solid #f5c6cb;
+        }
+    }
+}

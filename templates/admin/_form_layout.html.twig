@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+    <h1>{{bodyTitle}}</h1>
+
+    {{ include('admin/_form.html.twig', {'button_label': 'Enregister'}) }}
+
+    <a href="{{ path }}">Retour</a>
+{% endblock %}

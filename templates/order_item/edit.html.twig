@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit OrderItem
+{% endblock %}
+
+{% block container %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card p-4 shadow">
+					<div class="card-title d-flex align-items-center justify-content-between">
+						<a href="{{ path('app_home') }}" class="btn btn-link p-0">
+							<i class="fa fa-arrow-left"></i>
+							Retour
+						</a>
+						<h1 class="h4 mb-0 text-center">{{order_item.product}}</h1>
+					</div>
+					<hr>
+					{{ include('order_item/_form.html.twig', {'button_label': 'Update'}) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+

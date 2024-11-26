@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Access denied
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+                <div class="alert alert-danger">
+                    <h4>Access Denied</h4>
+                    <p>You do not have permission to view this page.</p>
+                    <a href="{{ path('app_home') }}">Go back</a>	
+                </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

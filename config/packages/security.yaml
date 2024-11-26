@@ -1,0 +1,52 @@
+security:
+    enable_authenticator_manager: true
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: app_user_provider
+            http_basic: ~
+            entry_point: App\Security\ApiAuthenticationEntryPoint
+
+        main:
+            lazy: true
+            provider: app_user_provider
+            custom_authenticator: App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                target: app_login
+            access_denied_url: /access-denied
+       
+       
+    access_control:
+        # Allow public access to the /api base route
+        - { path: ^/api$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Secure all other /api routes
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+
+        # Allow anonymous access to login and registration pages
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Secure admin routes
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+        # Default access for other routes
+        - { path: ^/, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
