@@ -16,3 +16,8 @@ npm run dev
 
 ### 5. Run the application
 symfony serve
+
+## 6. Login information
+The following users are created by the fixtures:
+User login: Use user@mail.com and user as credentials (you can also register a new user).
+Admin login: Use admin@mail.com for admin access.
