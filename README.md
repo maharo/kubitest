@@ -12,6 +12,7 @@ symfony console doctrine:schema:update --force
 symfony console doctrine:fixtures:load
 
 ### 4. Build assests
+npm install
 npm run dev
 
 ### 5. Run the application
