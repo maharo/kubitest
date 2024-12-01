@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,41 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Product[] Returns an array of Product objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByFilter(array $filter)
+    {
+        $qb = $this->createQueryBuilder('p');
 
-//    public function findOneBySomeField($value): ?Product
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $filters = [
+            'name' => 'filterByName',
+            'category' => 'filterByCategory',
+            'brand' => 'filterByBrand',
+        ];
+
+        foreach ($filters as $key => $method) {
+            if (!empty($filter[$key])) {
+                $qb = $this->{$method}($qb, $filter[$key]);
+            }
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    private function filterByName(QueryBuilder $qb, $name)
+    {
+        return $qb->andWhere('p.name like :name')
+            ->setParameter('name', '%'.$name .'%');
+    }
+
+    private function filterByCategory(QueryBuilder $qb, $category)
+    {
+        return $qb->andWhere('p.category = :category')
+        ->setParameter('category', $category);
+    }
+
+    private function filterByBrand(QueryBuilder $qb, $brand)
+    {
+        return $qb->andWhere('p.brand = :brand')
+        ->setParameter('brand', $brand);
+    }
 }

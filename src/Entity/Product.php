@@ -10,6 +10,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+use App\Validator\UniqueProduct;
+
 /**
  * @ApiResource(
  *     collectionOperations={"get", "post"},
@@ -18,11 +20,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"product:write"}}
  * )
  * @ORM\Entity(repositoryClass=ProductRepository::class)
- * @ORM\Table(
- *     uniqueConstraints={
- *         @ORM\UniqueConstraint(name="unique_name_energy_year", columns={"name", "energy", "year"})
- *     }
- * )
+ * @UniqueProduct
+ *
  */
 class Product
 {

@@ -159,7 +159,7 @@ class ProductApiTest extends WebTestCase
         $this->assertArrayHasKey('hydra:title', $data);
         $this->assertEquals('An error occurred', $data['hydra:title']);
         $this->assertArrayHasKey('hydra:description', $data);
-        $this->assertStringContainsString('The entity violates a unique constraint', $data['hydra:description']);
+        $this->assertStringContainsString('existe dejà dans la base de données', $data['hydra:description']);
 
     }
     

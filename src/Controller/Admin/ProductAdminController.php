@@ -36,12 +36,8 @@ class ProductAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $productRepository->add($product, true);
-                return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-            } catch(\Exception $e) {
-                $form->addError(new FormError($e->getMessage()));
-            }
+            $productRepository->add($product, true);
+            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/product/new.html.twig', [
@@ -59,12 +55,8 @@ class ProductAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try{
-                $productRepository->add($product, true);
-                return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-            } catch (\Exception $e) {
-                $form->addError(new FormError($e->getMessage()));
-            }
+            $productRepository->add($product, true);
+            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/product/edit.html.twig', [

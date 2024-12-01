@@ -18,7 +18,7 @@ class OrderManagementController extends AbstractController
      */
     public function index(OrderRepository $orderRepository): Response {
         
-        $orders = $orderRepository->findAll();
+        $orders = $orderRepository->getActiveOrders();
 
         return $this->render('admin/order_management/index.html.twig', [
             'orders' => $orders

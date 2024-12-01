@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
 use App\Form\CreateOrderType;
+use App\Form\FilterType;
 use App\Form\ProductOrderType;
 use App\Form\SubmitOrderType;
 use App\Repository\ProductRepository;
@@ -37,17 +38,24 @@ class OrderController extends AbstractController
         EntityManagerInterface $entityManager,
         ProductRepository $productRepository
     ): Response {
+        $session = $request->getSession();
+
         $user = $this->getUser();
         $order = $this->orderService->getOrCreateOrder($user);
-
-        $products = $productRepository->findAll();
-        $forms = $this->createProductForms($products);
 
         $submitOrderForm = $this->createForm(SubmitOrderType::class);
         $submitOrderForm->handleRequest($request);
 
         $createOrderForm = $this->createForm(CreateOrderType::class);
         $createOrderForm->handleRequest($request);
+
+        $filter = $session->get('filter');
+
+        $filterForm = $this->createForm(FilterType::class, null , ['method' => 'POST']);
+        $filterForm->handleRequest($request);
+
+        $products = $productRepository->findByFilter($filter);
+        $forms = $this->createProductForms($products);
 
         if ($submitOrderForm->isSubmitted() && $submitOrderForm->isValid()) {
             if ($order->getOrderItems() && $order->getOrderItems()->count() > 0 ) {
@@ -61,10 +69,22 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-
         if ($createOrderForm->isSubmitted() && $createOrderForm->isValid()) {
             $order = $this->orderService->createOrder($user);            
             return $this->redirectToRoute('app_home');
+        }
+
+
+        if ($filterForm->isSubmitted()) {
+            $formData = $filterForm->getData();
+
+            $filter = [
+                'name' => $formData['name'],
+                'category' => $formData['category'] ? $formData['category']->getId() : null,
+                'brand' => $formData['brand'] ? $formData['brand']->getId() : null,
+            ];
+
+            $session->set('filter', $filter);   
         }
 
         if ($request->isMethod('POST')) {
@@ -77,9 +97,24 @@ class OrderController extends AbstractController
             'forms' => $forms,
             'order' => $order,
             'submitOrderForm' => $submitOrderForm->createView(),
-            'createOrderForm' => $createOrderForm->createView()
+            'createOrderForm' => $createOrderForm->createView(),
+            'filterForm' => $filterForm->createView()
         ]);
     }
+
+    protected function getSearchValue(string $searchKey, ?array $formData, $defaultValue)
+    {
+        if (!is_array($formData)) {
+            return $defaultValue;
+        }
+
+        if (false !== array_key_exists($searchKey, $formData)) {
+            return $formData[$searchKey];
+        }
+
+        return $defaultValue;
+    }
+
 
 
     private function createProductForms(array $products): array

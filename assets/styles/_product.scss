@@ -1,3 +1,18 @@
+#filter_form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+
+    .mb-3 {
+        margin: 10px;
+
+        .btn {
+            margin-top: 30px;
+        }
+    }
+}
+
 .content {
     display: flex;
     gap: 2rem;
@@ -56,6 +71,25 @@
                 font-size: 1.5rem;
                 margin-bottom: 0.5rem;
                 color: $secondary-color;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .badge {
+                    border-radius: 50%;
+                    color:$background-color;
+                    margin-bottom: 0;
+                    margin-left: 5px;
+                    font-size: x-small;
+
+                    &.badge-danger {
+                        background-color: $danger-color;
+                    }
+
+                    &.badge-primary {
+                        background-color: $primary-color;
+                    }
+                }
             }
 
             span {

@@ -24,6 +24,10 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    App\EventListener\ProductListener:
+        tags:
+            - { name: doctrine.event_subscriber }
+
     App\Validator\UniqueProductConstraintValidator:
         tags: ['validator.constraint_validator']
 
